@@ -1,18 +1,5 @@
 import api from './api';
 
-interface NonStudentTicketPayload {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-}
-
-interface TicketPurchaseResponse {
-  message: string;
-  paymentUrl: string;
-  accessCode: string;
-  reference: string;
-}
-
 export interface TicketDetailsResponse {
   id: number;
   ticketCode: string;

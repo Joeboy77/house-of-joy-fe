@@ -1,7 +1,6 @@
 import { Container, Title, Text, Button, Paper, Stack, Group, ThemeIcon, Center } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useSearchParams, Link } from 'react-router-dom';
-import api from '../services/api';
 
 export function PaymentStatusPage() {
   const [searchParams] = useSearchParams();
@@ -10,10 +9,6 @@ export function PaymentStatusPage() {
   const ticketCode = searchParams.get('ticketCode');
 
   const isSuccess = status === 'success';
-
-  const handleDownload = () => {
-    window.open(`${api.defaults.baseURL}/tickets/code/${ticketCode}/download`, '_blank');
-  };
 
   return (
     <Container my={40}>
