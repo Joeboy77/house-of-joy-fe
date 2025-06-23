@@ -1,5 +1,5 @@
 import { ActionIcon, Group, TextInput, Button, Title, Text, Container, Stack, Divider } from '@mantine/core';
-import { IconBrandYoutube, IconBrandTiktok, IconBrandInstagram, IconMail } from '@tabler/icons-react';
+import { IconBrandFacebook, IconBrandTiktok, IconBrandInstagram, IconMail } from '@tabler/icons-react';
 import classes from './Footer.module.css';
 
 export function Footer() {
@@ -25,13 +25,37 @@ export function Footer() {
 
             <Group>
                 <Text c="white">Follow Us:</Text>
-                <ActionIcon component="a" href="#" size="lg" color="gray" variant="subtle">
-                    <IconBrandYoutube />
+                <ActionIcon 
+                    component="a" 
+                    href="https://www.facebook.com/gnaasugchoir" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    size="lg" 
+                    color="gray" 
+                    variant="subtle"
+                >
+                    <IconBrandFacebook />
                 </ActionIcon>
-                <ActionIcon component="a" href="#" size="lg" color="gray" variant="subtle">
+                <ActionIcon 
+                    component="a" 
+                    href="https://www.tiktok.com/@gnaasugchoir" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    size="lg" 
+                    color="gray" 
+                    variant="subtle"
+                >
                     <IconBrandTiktok />
                 </ActionIcon>
-                <ActionIcon component="a" href="#" size="lg" color="gray" variant="subtle">
+                <ActionIcon 
+                    component="a" 
+                    href="https://www.instagram.com/gnaas_ugchoir" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    size="lg" 
+                    color="gray" 
+                    variant="subtle"
+                >
                     <IconBrandInstagram />
                 </ActionIcon>
             </Group>
