@@ -1,0 +1,35 @@
+.hero {
+    position: relative;
+    background-image: url('../assets/img/section.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .content {
+    max-width: 600px;
+    color: var(--mantine-color-white);
+  }
+  
+  .title {
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  
+  .description {
+    font-size: 20px;
+  }
+
+  .ticketSection {
+    padding-top: calc(var(--mantine-spacing-xl) * 2);
+    padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+  } 
