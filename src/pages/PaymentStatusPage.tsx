@@ -29,7 +29,7 @@ export function PaymentStatusPage() {
             autoClose: 3000,
           });
         })
-        .catch((error) => {
+        .catch(() => {
           setVerificationStatus('failed');
           notifications.show({
             title: '❌ Payment Verification Failed',
