@@ -107,6 +107,15 @@ const StudentTicketPage = () => {
     if (message.includes("Validation failed")) {
       return "Please check your information and try again. Make sure all required fields are filled correctly.";
     }
+
+    // Handle Hubtel-specific errors
+    if (message.includes("Hubtel credentials")) {
+      return "Payment system is temporarily unavailable. Please try again later or contact support.";
+    }
+
+    if (message.includes("Hubtel API error")) {
+      return "Payment gateway error. Please try again or contact support if the issue persists.";
+    }
     
     // Default fallback
     return message;
@@ -180,6 +189,16 @@ const StudentTicketPage = () => {
         // Keep overlay visible and redirect immediately
         setTimeout(() => {
           if (paymentUrl && paymentUrl.trim() !== "") {
+            // Show notification before redirecting
+            notifications.show({
+              title: "🔗 Redirecting to Payment",
+              message: "You will be redirected to Hubtel payment gateway in a moment...",
+              color: "blue",
+              autoClose: 2000,
+              withCloseButton: true,
+            });
+            
+            // Redirect to Hubtel payment
             window.location.href = paymentUrl;
           } else {
             setIsPending(false);
@@ -400,10 +419,10 @@ const StudentTicketPage = () => {
                       <IconDeviceMobile />
                       <Stack gap={0}>
                         <Text fw={500} size="sm">
-                          Mobile Money Payment
+                          Mobile Money and Card Payments
                         </Text>
                         <Text size="xs" c="dimmed">
-                           Secure & Fast
+                          MTN, Vodafone, AirtelTigo, Card Payments
                         </Text>
                       </Stack>
                     </Group>

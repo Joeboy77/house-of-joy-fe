@@ -24,7 +24,7 @@ export const purchaseNonStudentTicket = (data: {
   email: string;
   phoneNumber: string;
 }) => {
-  return api.post("/tickets/non-student", data);
+  return api.post("/tickets/purchase/non-student", data);
 };
 
 export const purchaseStudentTicket = (formData: FormData) => {
@@ -41,4 +41,8 @@ export const checkStudentStatus = (email: string) => {
 
 export const getTicketByCode = (ticketCode: string) => {
   return api.get(`/tickets/code/${ticketCode}`);
+};
+
+export const verifyPayment = (reference: string) => {
+  return api.post("/tickets/payment/verify", { reference });
 }; 

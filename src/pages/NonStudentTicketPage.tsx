@@ -57,6 +57,15 @@ export function NonStudentTicketPage() {
     if (message.includes("Validation failed")) {
       return "Please check your information and try again. Make sure all required fields are filled correctly.";
     }
+
+    // Handle Hubtel-specific errors
+    if (message.includes("Hubtel credentials")) {
+      return "Payment system is temporarily unavailable. Please try again later or contact support.";
+    }
+
+    if (message.includes("Hubtel API error")) {
+      return "Payment gateway error. Please try again or contact support if the issue persists.";
+    }
     
     // Default fallback
     return message;
@@ -157,10 +166,10 @@ export function NonStudentTicketPage() {
                       </ThemeIcon>
                       <Stack gap={0}>
                         <Text fw={500} size="sm">
-                          Mobile Money Payment
+                          Mobile Money and Card Payments
                         </Text>
                         <Text size="xs" c="dimmed">
-                          Secure & Fast
+                          MTN, Vodafone, AirtelTigo, Card Payments
                         </Text>
                       </Stack>
                     </Group>
