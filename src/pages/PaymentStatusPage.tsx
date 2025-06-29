@@ -12,6 +12,7 @@ export function PaymentStatusPage() {
   const ticketCode = searchParams.get('ticketCode');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationStatus, setVerificationStatus] = useState<'pending' | 'success' | 'failed' | 'verified'>('pending');
+  const [ticketCodeState, setTicketCodeState] = useState<string | null>(ticketCode);
 
   const isSuccess = status === 'success';
 
@@ -20,17 +21,30 @@ export function PaymentStatusPage() {
     if (reference && !status) {
       setIsVerifying(true);
       verifyPayment(reference)
-        .then(() => {
-          setVerificationStatus('verified');
-          notifications.show({
-            title: '✅ Payment Verified',
-            message: 'Your payment has been successfully verified!',
-            color: 'green',
-            autoClose: 3000,
-          });
+        .then((res) => {
+          if (res.data.success) {
+            setVerificationStatus('verified');
+            setTicketCodeState(res.data.ticketCode || ticketCode);
+            notifications.show({
+              title: '✅ Payment Verified',
+              message: 'Your payment has been successfully verified!',
+              color: 'green',
+              autoClose: 3000,
+            });
+          } else {
+            setVerificationStatus('failed');
+            setTicketCodeState(null);
+            notifications.show({
+              title: '❌ Payment Verification Failed',
+              message: res.data.message || 'Unable to verify your payment. Please contact support if you believe this is an error.',
+              color: 'red',
+              autoClose: 5000,
+            });
+          }
         })
         .catch(() => {
           setVerificationStatus('failed');
+          setTicketCodeState(null);
           notifications.show({
             title: '❌ Payment Verification Failed',
             message: 'Unable to verify your payment. Please contact support if you believe this is an error.',
@@ -44,7 +58,7 @@ export function PaymentStatusPage() {
     } else if (status) {
       setVerificationStatus(status === 'success' ? 'success' : 'failed');
     }
-  }, [reference, status]);
+  }, [reference, status, ticketCode]);
 
   const getStatusInfo = () => {
     if (isVerifying) {
@@ -109,8 +123,8 @@ export function PaymentStatusPage() {
             )}
 
             <Group grow w="100%">
-              {(verificationStatus === 'verified' || isSuccess) && ticketCode ? (
-                <Button component={Link} to={`/tickets/${ticketCode}`} size="md">
+              {(verificationStatus === 'verified' || isSuccess) && ticketCodeState ? (
+                <Button component={Link} to={`/tickets/${ticketCodeState}`} size="md">
                   View Your Ticket
                 </Button>
               ) : (
