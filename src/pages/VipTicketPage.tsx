@@ -9,12 +9,11 @@ import {
   Stack,
   Divider,
   Grid,
-  ThemeIcon,
   Box,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { IconUser, IconDeviceMobile, IconLock } from '@tabler/icons-react';
+import { IconUser, IconLock } from '@tabler/icons-react';
 import { useState } from 'react';
 import { purchaseNonStudentTicket } from '../services/ticketService';
 import classes from './HomePage.module.css';
@@ -97,7 +96,7 @@ export function VipTicketPage() {
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Stack gap="xl">
               <Stack gap={0} align="center">
-                <Title order={2} color="yellow.9">VIP Ticket</Title>
+                <Title order={2}><Text c="yellow.9">VIP Ticket</Text></Title>
                 <Text c="dimmed">Fill in your details to purchase your VIP ticket</Text>
               </Stack>
 

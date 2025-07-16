@@ -19,7 +19,8 @@ import { IconUser, IconDeviceMobile, IconLock } from '@tabler/icons-react';
 import { useState } from 'react';
 import { purchaseNonStudentTicket } from '../services/ticketService';
 import classes from './HomePage.module.css';
-import { TicketType } from '../types';
+
+type TicketType = 'NON_STUDENT' | 'VIP';
 import vipImg from '../assets/img/vip.jpeg';
 
 export function NonStudentTicketPage() {

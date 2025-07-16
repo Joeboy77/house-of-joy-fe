@@ -23,6 +23,7 @@ export const purchaseNonStudentTicket = (data: {
   fullName: string;
   email: string;
   phoneNumber: string;
+  ticketType?: 'NON_STUDENT' | 'VIP';
 }) => {
   return api.post("/tickets/purchase/non-student", data);
 };
