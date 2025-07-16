@@ -6,6 +6,7 @@ import { NonStudentTicketPage } from "./pages/NonStudentTicketPage";
 import { PaymentStatusPage } from "./pages/PaymentStatusPage";
 import { TicketDetailsPage } from "./pages/TicketDetailsPage";
 import StudentTicketPage from "./pages/StudentTicketPage";
+import { VipTicketPage } from "./pages/VipTicketPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/student-ticket" element={<StudentTicketPage />} />
         <Route path="/payment/status" element={<PaymentStatusPage />} />
         <Route path="/tickets/:ticketCode" element={<TicketDetailsPage />} />
+        <Route path="/vip-ticket" element={<VipTicketPage />} />
       </Route>
     </Routes>
   );

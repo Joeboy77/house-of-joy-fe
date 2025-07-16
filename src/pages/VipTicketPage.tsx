@@ -11,7 +11,6 @@ import {
   Grid,
   ThemeIcon,
   Box,
-  Select,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
@@ -19,13 +18,11 @@ import { IconUser, IconDeviceMobile, IconLock } from '@tabler/icons-react';
 import { useState } from 'react';
 import { purchaseNonStudentTicket } from '../services/ticketService';
 import classes from './HomePage.module.css';
-import { TicketType } from '../types';
 import vipImg from '../assets/img/vip.jpeg';
 
-export function NonStudentTicketPage() {
+export function VipTicketPage() {
   const [loading, setLoading] = useState(false);
-  const [ticketType, setTicketType] = useState<TicketType>('NON_STUDENT');
-  const ticketPrice = ticketType === 'VIP' ? 200.0 : 100.0;
+  const ticketPrice = 200.0;
   const total = ticketPrice;
 
   const form = useForm({
@@ -44,41 +41,25 @@ export function NonStudentTicketPage() {
 
   const getErrorMessage = (error: any): string => {
     const message = error?.response?.data?.message || "An error occurred. Please try again.";
-    
-    // Handle common validation errors
     if (message.includes("Phone number must be a valid Ghanaian number")) {
       return "Please enter a valid Ghanaian phone number. Use format: 0244123456 or +233244123456";
     }
-    
-    if (message.includes("already has a ticket")) {
-      return "You already have a ticket for this event. Please check your email for details.";
-    }
-    
-    if (message.includes("already have a paid ticket")) {
-      return "You already have a paid ticket for this event. Please check your email for your ticket.";
-    }
-    
     if (message.includes("Validation failed")) {
       return "Please check your information and try again. Make sure all required fields are filled correctly.";
     }
-
-    // Handle Hubtel-specific errors
     if (message.includes("Hubtel credentials")) {
       return "Payment system is temporarily unavailable. Please try again later or contact support.";
     }
-
     if (message.includes("Hubtel API error")) {
       return "Payment gateway error. Please try again or contact support if the issue persists.";
     }
-    
-    // Default fallback
     return message;
   };
 
   const handleSubmit = async (values: { fullName: string; email: string; phoneNumber: string }) => {
     setLoading(true);
     try {
-      const response: { data: { paymentUrl: string } } = await purchaseNonStudentTicket({ ...values, ticketType });
+      const response: { data: { paymentUrl: string } } = await purchaseNonStudentTicket({ ...values, ticketType: 'VIP' });
       window.location.href = response.data.paymentUrl;
     } catch (error: any) {
       const userFriendlyMessage = getErrorMessage(error);
@@ -101,14 +82,10 @@ export function NonStudentTicketPage() {
           <div className={classes.inner}>
             <div className={classes.content}>
               <Title className={classes.title}>
-                Purchase Your HOJ 25' Ticket Here 🎉
+                Purchase Your VIP Ticket 🎟️
               </Title>
               <Text className={classes.description} mt={30}>
-                Secure your spot at the most exciting events. Easy registration,
-                instant confirmation.
-              </Text>
-              <Text className={classes.description} mt={10}>
-                🎶 Come and enjoy music like never before.....
+                Enjoy premium seating, exclusive access, and more. Limited VIP tickets available!
               </Text>
             </div>
           </div>
@@ -120,8 +97,8 @@ export function NonStudentTicketPage() {
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Stack gap="xl">
               <Stack gap={0} align="center">
-                <Title order={2}>Non Student Ticket</Title>
-                <Text c="dimmed">Fill in your details to purchase your ticket</Text>
+                <Title order={2} color="yellow.9">VIP Ticket</Title>
+                <Text c="dimmed">Fill in your details to purchase your VIP ticket</Text>
               </Stack>
 
               <Stack>
@@ -154,43 +131,14 @@ export function NonStudentTicketPage() {
                       {...form.getInputProps('phoneNumber')}
                     />
                   </Grid.Col>
-                  <Grid.Col span={12}>
-                    <Select
-                      label="Ticket Type"
-                      data={[
-                        { value: 'NON_STUDENT', label: 'Regular (GHS 100)' },
-                        { value: 'VIP', label: 'VIP (GHS 200)' },
-                      ]}
-                      value={ticketType}
-                      onChange={(val) => setTicketType(val as TicketType)}
-                      required
-                    />
-                  </Grid.Col>
                 </Grid>
               </Stack>
 
-              <Paper withBorder p="md" radius="md" bg="green.0">
-                <Stack>
-                  <Group>
-                    <IconDeviceMobile />
-                    <Text fw={500}>Payment Method</Text>
-                  </Group>
-                  <Paper withBorder p="md" radius="sm" bg="white">
-                    <Group>
-                      <ThemeIcon variant="white" c="green">
-                        <IconDeviceMobile />
-                      </ThemeIcon>
-                      <Stack gap={0}>
-                        <Text fw={500} size="sm">
-                          Mobile Money and Card Payments
-                        </Text>
-                        <Text size="xs" c="dimmed">
-                          MTN, Vodafone, AirtelTigo, Card Payments
-                        </Text>
-                      </Stack>
-                    </Group>
-                  </Paper>
-                </Stack>
+              <Paper withBorder p="md" radius="md" bg="yellow.0">
+                <Group>
+                  <img src={vipImg} alt="VIP Ticket" style={{ width: 80, borderRadius: 8 }} />
+                  <Text fw={500} color="yellow.9">VIP Ticket: Includes premium seating and exclusive access!</Text>
+                </Group>
               </Paper>
 
               <Stack>
@@ -198,7 +146,7 @@ export function NonStudentTicketPage() {
                 <Stack gap="xs">
                   <Group justify="space-between">
                     <Text size="sm">Ticket Type:</Text>
-                    <Text size="sm">{ticketType === 'VIP' ? 'VIP' : 'Regular'}</Text>
+                    <Text size="sm">VIP</Text>
                   </Group>
                   <Group justify="space-between">
                     <Text size="sm">Price:</Text>
@@ -210,14 +158,6 @@ export function NonStudentTicketPage() {
                     <Text fw={500}>Gh {total.toFixed(2)}</Text>
                   </Group>
                 </Stack>
-                {ticketType === 'VIP' && (
-                  <Paper withBorder p="md" radius="md" bg="yellow.0">
-                    <Group>
-                      <img src={vipImg} alt="VIP Ticket" style={{ width: 80, borderRadius: 8 }} />
-                      <Text fw={500} color="yellow.9">VIP Ticket: Includes premium seating and exclusive access!</Text>
-                    </Group>
-                  </Paper>
-                )}
               </Stack>
               <Group justify="center" mt="xl">
                 <Button
@@ -226,7 +166,7 @@ export function NonStudentTicketPage() {
                   fullWidth
                   loading={loading}
                   leftSection={<IconLock size={18} />}
-                  style={{ backgroundColor: '#401516' }}
+                  style={{ backgroundColor: '#FFD700', color: '#401516' }}
                 >
                   <Text fz={{base: 'xs', sm: 'md'}} visibleFrom="sm">Proceed to Secure Payment</Text>
                   <Text fz={{base: 'xs', sm: 'md'}} hiddenFrom="sm">Proceed to Payment</Text>

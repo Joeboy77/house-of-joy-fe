@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import classes from './HomePage.module.css';
 import studentTicketImg from '../assets/img/student-ticket.png';
 import nonStudentTicketImg from '../assets/img/non-student-ticket.png';
+import vipTicketImg from '../assets/img/vip.jpeg';
 
 export function HomePage() {
   return (
@@ -68,6 +69,25 @@ export function HomePage() {
                                 <IconCheck style={{ width: '70%', height: '70%' }} />
                             </ThemeIcon>
                             <Text fz="xs" c="dimmed">Instant confirmation</Text>
+                        </Group>
+                    </Group>
+                </Card>
+              </Link>
+              <Link to="/vip-ticket" style={{ textDecoration: 'none' }}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                    <Card.Section>
+                    <Image
+                        src={vipTicketImg}
+                        alt="VIP Ticket"
+                    />
+                    </Card.Section>
+                    <Group justify="space-between" mt="md" align="center">
+                        <Text fz="sm" fw={700} color="yellow.9">VIP ticket with premium seating and exclusive access</Text>
+                        <Group align="center" gap={5}>
+                            <ThemeIcon color="yellow" size={20} radius="xl">
+                                <IconCheck style={{ width: '70%', height: '70%' }} />
+                            </ThemeIcon>
+                            <Text fz="xs" c="yellow.9">GHS 200</Text>
                         </Group>
                     </Group>
                 </Card>
