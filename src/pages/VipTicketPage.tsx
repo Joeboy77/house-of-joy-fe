@@ -32,7 +32,9 @@ export function VipTicketPage() {
     },
     validate: {
       fullName: (value) => (value.length < 2 ? 'Full name must have at least 2 letters' : null),
+
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      
       phoneNumber: (value) =>
         value.length < 10 ? 'Phone number must have at least 10 digits' : null,
     },
