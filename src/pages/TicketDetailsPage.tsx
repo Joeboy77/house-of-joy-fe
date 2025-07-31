@@ -35,6 +35,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getTicketByCode, TicketDetailsResponse } from '../services/ticketService';
 import api from '../services/api';
+import vipImg from '../assets/img/vip.jpeg';
 
 function DetailItem({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
@@ -116,6 +117,18 @@ export function TicketDetailsPage() {
     <Box py="xl" px="md">
       <Container size="sm" p={0}>
         <Paper bg="dark.8" radius="lg" style={{ overflow: 'hidden' }}>
+          {/* VIP Special Banner */}
+          {ticket.ticketType === 'VIP' && (
+            <Paper p="md" radius="md" bg="yellow.0" mb="md" style={{ border: '2px solid gold', textAlign: 'center' }}>
+              <Group justify="center" align="center">
+                <img src={vipImg} alt="VIP Ticket" style={{ width: 60, borderRadius: 8, marginRight: 16 }} />
+                <Stack gap={0} align="center">
+                  <Badge color="yellow" size="xl" radius="xl" style={{ fontSize: 18, fontWeight: 700 }}>VIP</Badge>
+                  <Text fw={700} color="yellow.9" size="lg">Welcome, VIP! Please proceed to the VIP entrance on event day.</Text>
+                </Stack>
+              </Group>
+            </Paper>
+          )}
           <Group justify="space-between" p="md" bg="dark.6">
             <ActionIcon onClick={() => navigate(-1)} variant="subtle" c="white" size="lg">
               <IconArrowLeft size={20} />
@@ -144,7 +157,9 @@ export function TicketDetailsPage() {
               {/* Ticket Type */}
               <Paper withBorder p="md" radius="md" ta="center">
                 <Text size="xs" c="dimmed">TICKET TYPE</Text>
-                <Badge color="red" size="lg">{ticket.ticketType}</Badge>
+                <Badge color={ticket.ticketType === 'VIP' ? 'yellow' : 'red'} size="lg">
+                  {ticket.ticketType}
+                </Badge>
               </Paper>
             </Group>
 
