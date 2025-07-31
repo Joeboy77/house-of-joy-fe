@@ -6,7 +6,7 @@ export interface TicketDetailsResponse {
   fullName: string;
   email: string;
   phoneNumber: string;
-  ticketType: 'STUDENT' | 'NON_STUDENT';
+  ticketType: 'STUDENT' | 'NON_STUDENT' | 'VIP';
   ticketStatus: 'PENDING_VERIFICATION' | 'PENDING_PAYMENT' | 'PAID' | 'USED' | 'CANCELLED' | 'EXPIRED';
   paymentStatus: 'NOT_REQUIRED' | 'PENDING' | 'SUCCESS' | 'FAILED' | 'REFUNDED';
   amount: number;
